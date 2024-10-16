@@ -22,13 +22,22 @@ func Add(numbers string) int {
 		return 0
 	}
 
+	// Extract the delimiter and remaining part of the input
 	delimiter, remaining := extractDelimiter(numbers)
-	re := regexp.MustCompile(delimiter)
-	parts := re.Split(remaining, -1)
 
+	// Handle both custom delimiters and newlines by adding \n to the delimiter set
+	delimiterRegex := fmt.Sprintf("%s|\n", delimiter)
+	re := regexp.MustCompile(delimiterRegex)
+
+	parts := re.Split(remaining, -1)
 	sum := 0
 	negatives := []int{}
+
 	for _, part := range parts {
+		if part == "" {
+			continue
+		}
+
 		num := toInt(part)
 		if num < 0 {
 			negatives = append(negatives, num)
@@ -57,7 +66,7 @@ func extractDelimiter(input string) (string, string) {
 		return strings.Join(delimiters, "|"), parts[1]
 	} else if strings.HasPrefix(input, "//") {
 		parts := strings.SplitN(input, "\n", 2)
-		return parts[0][2:], parts[1]
+		return regexp.QuoteMeta(parts[0][2:]), parts[1]
 	}
 	return ",", input
 }
