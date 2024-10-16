@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"regexp"
 )
 
 // Add takes a string of numbers and returns their sum.
@@ -34,9 +35,18 @@ func Add(numbers string) int {
 	return sum
 }
 
-// extractDelimiter handles custom delimiter logic.
+// extractDelimiter supports multi-character delimiters like //[***]\n1***2.
 func extractDelimiter(input string) (string, string) {
-	if strings.HasPrefix(input, "//") {
+	if strings.HasPrefix(input, "//[") {
+		re := regexp.MustCompile(`\[(.*?)\]`)
+		matches := re.FindAllStringSubmatch(input, -1)
+		delimiters := []string{}
+		for _, match := range matches {
+			delimiters = append(delimiters, regexp.QuoteMeta(match[1]))
+		}
+		parts := strings.SplitN(input, "\n", 2)
+		return strings.Join(delimiters, "|"), parts[1]
+	} else if strings.HasPrefix(input, "//") {
 		parts := strings.SplitN(input, "\n", 2)
 		return parts[0][2:], parts[1]
 	}
