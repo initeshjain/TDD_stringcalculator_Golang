@@ -52,3 +52,10 @@ func TestAdd_NegativeNumbers_ThrowsException(t *testing.T) {
     }()
     Add("1,-2")
 }
+
+func TestAdd_NumbersGreaterThan1000_Ignored(t *testing.T) {
+    result := Add("2,1001")
+    if result != 2 {
+        t.Errorf("Expected 2, got %d", result)
+    }
+}

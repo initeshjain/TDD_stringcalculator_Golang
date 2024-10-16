@@ -1,9 +1,9 @@
 package stringcalculator
 
 import (
-    "strconv"
-    "strings"
-		"fmt"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 func Add(numbers string) int {
@@ -28,7 +28,10 @@ func Add(numbers string) int {
         if num < 0 {
             negatives = append(negatives, num)
         }
-        sum += num
+
+        if num <= 1000 {
+  		  	sum += num
+				}
     }
 
     if len(negatives) > 0 {
