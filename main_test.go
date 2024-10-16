@@ -16,6 +16,13 @@ func TestAdd_OneNumber_ReturnsSameNumber(t *testing.T) {
     }
 }
 
+func TestAdd_MultipleNumbers_ReturnsSum(t *testing.T) {
+    result := Add("1,2,3,4")
+    if result != 10 {
+        t.Errorf("Expected 10, got %d", result)
+    }
+}
+
 func TestAdd_TwoNumbers_ReturnsSum(t *testing.T) {
     result := Add("1,2")
     if result != 3 {

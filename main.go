@@ -1,3 +1,5 @@
+package stringcalculator
+
 import (
     "strconv"
     "strings"
