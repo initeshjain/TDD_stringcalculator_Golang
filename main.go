@@ -7,15 +7,14 @@ import (
 	"regexp"
 )
 
-// Add takes a string of numbers and returns their sum.
 func Add(numbers string) int {
 	if numbers == "" {
 		return 0
 	}
 
 	delimiter, remaining := extractDelimiter(numbers)
-	remaining = strings.ReplaceAll(remaining, "\n", delimiter)
-	parts := strings.Split(remaining, delimiter)
+	re := regexp.MustCompile(delimiter)
+	parts := re.Split(remaining, -1)
 
 	sum := 0
 	negatives := []int{}
