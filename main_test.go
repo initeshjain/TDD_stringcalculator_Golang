@@ -44,3 +44,11 @@ func TestAdd_CustomDelimiter_ReturnsSum(t *testing.T) {
     }
 }
 
+func TestAdd_NegativeNumbers_ThrowsException(t *testing.T) {
+    defer func() {
+        if r := recover(); r == nil {
+            t.Errorf("Expected panic for negative numbers")
+        }
+    }()
+    Add("1,-2")
+}

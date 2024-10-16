@@ -3,6 +3,7 @@ package stringcalculator
 import (
     "strconv"
     "strings"
+		"fmt"
 )
 
 func Add(numbers string) int {
@@ -21,11 +22,17 @@ func Add(numbers string) int {
     parts := strings.Split(numbers, delimiter)
 
     sum := 0
+    negatives := []int{}
     for _, part := range parts {
         num, _ := strconv.Atoi(part)
+        if num < 0 {
+            negatives = append(negatives, num)
+        }
         sum += num
+    }
+
+    if len(negatives) > 0 {
+        panic(fmt.Sprintf("negatives not allowed: %v", negatives))
     }
     return sum
 }
-
-
