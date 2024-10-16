@@ -7,6 +7,16 @@ import (
 	"regexp"
 )
 
+// Helper function to convert string to integer with error handling.
+func toInt(str string) int {
+	num, err := strconv.Atoi(str)
+	if err != nil {
+		panic(fmt.Sprintf("Invalid number: %s", str))
+	}
+	return num
+}
+
+// Add takes a string of numbers and returns their sum.
 func Add(numbers string) int {
 	if numbers == "" {
 		return 0
@@ -19,7 +29,7 @@ func Add(numbers string) int {
 	sum := 0
 	negatives := []int{}
 	for _, part := range parts {
-		num, _ := strconv.Atoi(part)
+		num := toInt(part)
 		if num < 0 {
 			negatives = append(negatives, num)
 		}
@@ -34,7 +44,7 @@ func Add(numbers string) int {
 	return sum
 }
 
-// extractDelimiter supports multi-character delimiters like //[***]\n1***2.
+// extractDelimiter supports multi-character and multiple delimiters.
 func extractDelimiter(input string) (string, string) {
 	if strings.HasPrefix(input, "//[") {
 		re := regexp.MustCompile(`\[(.*?)\]`)
