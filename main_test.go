@@ -59,3 +59,17 @@ func TestAdd_NumbersGreaterThan1000_Ignored(t *testing.T) {
         t.Errorf("Expected 2, got %d", result)
     }
 }
+
+func TestAdd_MultiCharacterDelimiter_ReturnsSum(t *testing.T) {
+	result := Add("//[***]\n1***2***3")
+	if result != 6 {
+		t.Errorf("Expected 6, got %d", result)
+	}
+}
+
+func TestAdd_MultipleDelimiters_ReturnsSum(t *testing.T) {
+	result := Add("//[*][%]\n1*2%3")
+	if result != 6 {
+		t.Errorf("Expected 6, got %d", result)
+	}
+}
