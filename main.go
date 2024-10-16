@@ -10,6 +10,8 @@ func Add(numbers string) int {
         return 0
     }
 
+    // Replace newlines with commas for consistent splitting
+    numbers = strings.ReplaceAll(numbers, "\n", ",")
     parts := strings.Split(numbers, ",")
     sum := 0
     for _, part := range parts {
@@ -18,3 +20,4 @@ func Add(numbers string) int {
     }
     return sum
 }
+

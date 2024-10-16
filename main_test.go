@@ -29,3 +29,11 @@ func TestAdd_TwoNumbers_ReturnsSum(t *testing.T) {
         t.Errorf("Expected 3, got %d", result)
     }
 }
+
+func TestAdd_NewlineDelimiter_ReturnsSum(t *testing.T) {
+    result := Add("1\n2,3")
+    if result != 6 {
+        t.Errorf("Expected 6, got %d", result)
+    }
+}
+
